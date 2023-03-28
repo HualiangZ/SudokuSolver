@@ -11,20 +11,35 @@ public class Graph {
     private int selectCol;
     int[][] board;
 
-    ArrayList<Integer>[] nodeNeighbour;
+    ArrayList<Integer>[] rows;
+    ArrayList<Integer>[] cols;
 
     Graph(){
         selectRow = 0;
         selectCol = 0;
         nodeId = 1;
+        rows = new ArrayList[9];
+        cols = new ArrayList[9];
         board = new int[9][9];
-
-
-        nodeNeighbour = new ArrayList[81];
-        for (int i=0; i<81; ++i)
-            nodeNeighbour[i] = new ArrayList();
-
         map = new HashMap<>();
+
+        //create edges for each row
+        int counter = 0;
+        for(int row=0; row<9;row++) {
+            rows[row] =  new ArrayList<Integer>();
+            for(int idx=0; idx<9; idx++) {
+                rows[row].add(counter);
+                counter = counter +1;
+            }
+        }
+        //create edges for each column
+        for(int col=0; col<9; col++){
+            cols[col] = new ArrayList<Integer>();
+            for(int idx=col; idx<81; idx=idx+9) {
+                cols[col].add(idx);
+            }
+
+        }
 
         for(int row=0; row<9; row++){
             for(int col=0; col<9; col++){
@@ -38,32 +53,7 @@ public class Graph {
 
     }
 
-    public void addEdges(int num, int nextNum){
-        nodeNeighbour[num].add(nextNum);
-        nodeNeighbour[nextNum].add(num);
-    }
 
-    public void createEdges(){
-        int row = 0;
-        //create edges for each row
-        for(int idx=0; idx<81; idx++){
-            if(idx != row){
-                this.addEdges(row,idx);
-            }
-            if((idx+1)%9 == 0){
-                row=row+9;
-            }
-        }
-
-        //create edges for each column
-        for(int col=0; col<9; col++){
-            for(int idx=col; idx<81; idx=idx+9){
-                if(idx != col){
-                    this.addEdges(col, idx);
-                }
-            }
-        }
-    }
 
 
     public void addNum(int num){
