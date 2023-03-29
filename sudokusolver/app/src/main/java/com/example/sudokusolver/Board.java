@@ -16,7 +16,6 @@ public class Board extends View {
     private Paint linePaint = new Paint();
     private Paint cellColourPaint = new Paint();
     private Paint numPaint = new Paint();
-    private Rect numBounds = new Rect();
     private int cellSize;
     private int cellColour;
     private Graph graph = new Graph();
@@ -82,9 +81,6 @@ public class Board extends View {
     private void setNum(Canvas c, int row, int col){
         if (graph.getBoard()[row][col] != 0) {
             String num = Integer.toString(graph.getBoard()[row][col]);
-
-            numPaint.getTextBounds(num,0,num.length(), numBounds);
-
             c.drawText(num,col*cellSize,row*cellSize+cellSize, numPaint);
         }
     }
