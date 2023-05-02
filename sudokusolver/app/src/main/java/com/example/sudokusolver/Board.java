@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Paint;
-import android.graphics.Rect;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
@@ -37,10 +36,9 @@ public class Board extends View {
     @Override
     public void onMeasure(int width, int height){
         super.onMeasure(width, height);
-        int dim = Math.min(this.getMeasuredWidth(), this.getMeasuredHeight());
 
-        cellSize = dim/9;
-        setMeasuredDimension(dim,dim);
+        cellSize = this.getMeasuredWidth()/9;
+        setMeasuredDimension(this.getMeasuredWidth(),this.getMeasuredWidth());
     }
 
     @Override
@@ -55,7 +53,7 @@ public class Board extends View {
 
         numPaint.setStyle(Paint.Style.FILL);
         //numPaint.setColor();
-        colourCell(c, graph.getSelectRow(), graph.getSelectCol());
+        colourCell(c, graph.getRow(), graph.getCol());
         c.drawRect(0,0,getWidth(),getHeight(),linePaint);
         drawBoard(c);
         addNum(c);
@@ -67,8 +65,8 @@ public class Board extends View {
         int a = event.getAction();
 
         if(a == MotionEvent.ACTION_DOWN){
-            graph.setSelectCol((int)Math.ceil(event.getX()/cellSize));
-            graph.setSelectRow((int)Math.ceil(event.getY()/cellSize));
+            graph.setCol((int)Math.ceil(event.getX()/cellSize));
+            graph.setRow((int)Math.ceil(event.getY()/cellSize));
             touch = true;
         }else{
             touch = false;
@@ -83,18 +81,20 @@ public class Board extends View {
             String num = Integer.toString(graph.getBoard()[row][col]);
             c.drawText(num,col*cellSize,row*cellSize+cellSize, numPaint);
         }
+
     }
     private void addNum(Canvas c){
         numPaint.setTextSize(cellSize);
         for(int row=0; row<9; row++){
             for(int col=0; col<9; col++){
                 this.setNum(c, row, col);
+
             }
         }
     }
 
     private void colourCell(Canvas c, int row, int col){
-        if(graph.getSelectCol() != 0 && graph.getSelectRow() != 0){
+        if(graph.getCol() != 0 && graph.getRow() != 0){
             c.drawRect((col-1)*cellSize,(row-1)*cellSize, col*cellSize,
                     row*cellSize, cellColourPaint);
         }

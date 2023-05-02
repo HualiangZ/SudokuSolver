@@ -17,48 +17,76 @@ public class MainActivity extends AppCompatActivity {
         g = board.getGraph();
     }
 
-    public void btnOne(View view){
-        g.addNum(1);
+    public void btnSolve(View view){
+        g.solver();
+        g.setSolveBoard();
+        g.printBoard();
         board.invalidate();
+    }
+
+    public void btnClearBoard(View view){
+        g.clearBoard();
+        board.invalidate();
+    }
+
+
+    public void btnClear(View view){
+        g.addNum(0);
+        board.invalidate();
+    }
+
+
+    public void btnOne(View view){
+        if(g.addNum(1)) {
+            board.invalidate();
+        }
     }
 
     public void btnTwo(View view){
-        g.addNum(2);
-        board.invalidate();
+        if(g.addNum(2)) {
+            board.invalidate();
+        }
     }
 
     public void btnThree(View view){
-        g.addNum(3);
-        board.invalidate();
+        if(g.addNum(3)) {
+            board.invalidate();
+        }
     }
 
     public void btnFour(View view){
-        g.addNum(4);
-        board.invalidate();
+        if(g.addNum(4)) {
+            board.invalidate();
+        }
     }
 
     public void btnFive(View view){
-        g.addNum(5);
-        board.invalidate();
+        if(g.addNum(5)) {
+            board.invalidate();
+        }
     }
 
     public void btnSix(View view){
-        g.addNum(6);
-        board.invalidate();
+        if(g.addNum(6)) {
+            board.invalidate();
+        }
     }
 
     public void btnSeven(View view){
-        g.addNum(7);
-        board.invalidate();
+        if(g.addNum(7)) {
+            board.invalidate();
+        }
     }
 
     public void btnEight(View view){
-        g.addNum(8);
-        board.invalidate();
+        if(g.addNum(8)) {
+            board.invalidate();
+        }
     }
 
     public void btnNine(View view){
-        g.addNum(9);
-        board.invalidate();
+        if(g.addNum(9)) {
+            board.invalidate();
+        }
     }
 }
